@@ -1,0 +1,87 @@
+package com.company.blackjack;
+
+import java.util.Scanner;
+
+public class black {
+    public static void main(String[] args) {
+        System.out.println("Welcome to blackjack!");
+        deck playing = new deck();
+        deck player = new deck();
+        deck dealer = new deck();
+        playing.refill();
+        playing.shuffledeck();
+        Scanner userInput = new Scanner(System.in);
+
+        player.drawing(playing);
+        player.drawing(playing);
+        dealer.drawing(playing);
+        dealer.drawing(playing);
+        System.out.println("the player has " + player);
+        System.out.println("player hand has the value " + player.cardsval());
+        System.out.println("the dealer has " + dealer);
+        System.out.println("dealers hand has the value "+ dealer.cardsval());
+        if(player.cardsval()==21){
+            System.out.println("player wins");
+        }
+        System.out.print("1-hit, 2-stand ");
+        int hit = userInput.nextInt();
+        if (hit == 1 ){
+            player.drawing(playing);
+            System.out.println("the player has " + player);
+            System.out.println("player hand has the value " + player.cardsval());
+
+            if (player.cardsval()<21) {
+                System.out.println("1-hit, 2-stand");
+                int hit1 = userInput.nextInt();
+                if (hit1 == 1) {
+                    player.drawing(playing);
+                    System.out.println("the player has " + player);
+                    System.out.println("player hand has the value " + player.cardsval());
+                    if (player.cardsval() == 21) {
+                        System.out.println("player wins");
+                    }
+                } else if (hit1 == 2) {
+                    if (dealer.cardsval() > player.cardsval()) {
+                        System.out.println("dealer wins");
+                    } else if (dealer.cardsval() == player.cardsval()) {
+                        System.out.println("tie game");
+                    } else {
+                        if (dealer.cardsval() < player.cardsval()) {
+                            dealer.drawing(playing);
+                            System.out.println("the dealer's new hand is " + dealer);
+                            System.out.println("dealers hand has the value " + dealer.cardsval());
+                            if (dealer.cardsval() > 21) {
+                                System.out.println("player wins");
+                            }
+                        }
+                        if (player.cardsval() == 21) {
+                            System.out.println("player wins");
+                        }
+
+                    }
+                }
+            }
+        }
+        else if (hit == 2) {
+            if (dealer.cardsval() > player.cardsval()) {
+                System.out.println("dealer wins");
+            } else if (dealer.cardsval() == player.cardsval()) {
+                System.out.println("tie game");
+            } else {
+                if (dealer.cardsval() < player.cardsval()) {
+                    dealer.drawing(playing);
+                    System.out.println("the dealer's new hand is " + dealer);
+                    System.out.println("dealers hand has the value " + dealer.cardsval());
+                    if (dealer.cardsval() > 21) {
+                        System.out.println("player wins");
+                    }
+                }
+                if (player.cardsval() == 21) {
+                    System.out.println("player wins");
+                }
+
+            }
+        }
+    }
+
+}
