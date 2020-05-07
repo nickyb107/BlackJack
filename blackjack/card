@@ -1,0 +1,26 @@
+package com.company.blackjack;
+
+public class card {
+    enum Suit {
+        HEART, SPADE, DIAMOND, CLUB;
+    }
+    enum Value {
+        TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE;
+    }
+    private Suit suit;
+    private Value value;
+
+    public card(Suit suit, Value value) {
+        this.suit = suit;
+        this.value = value;
+    }
+
+    public String toString() {
+        return this.suit.toString() + "-" + this.value.toString();
+    }
+
+    public Value getValue() {
+        return this.value;
+    }
+
+}
