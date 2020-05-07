@@ -1,0 +1,95 @@
+package com.company.blackjack;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class deck {
+    private ArrayList<card> cards;
+
+    public deck(){
+        this.cards = new ArrayList<card>();
+    }
+
+    public void refill() {
+        for (card.Suit cardSuit : card.Suit.values()) {
+            for (card.Value cardValue : card.Value.values()) {
+                this.cards.add(new card(cardSuit,cardValue));
+            }
+        }
+    }
+    public void shuffledeck(){
+        ArrayList<card> tempdeck = new ArrayList<card>();
+        Random randomize = new Random();
+        int randomcard = 0;
+        int size = this.cards.size();
+        for(int i= 0; i<size; i++){
+            randomcard = randomize.nextInt((this.cards.size()-1)+1);
+            tempdeck.add(this.cards.get(randomcard));
+            this.cards.remove(randomcard);
+        }
+        this.cards = tempdeck;
+    }
+
+    public void removecard(int i){
+            this.cards.remove(i);
+
+    }
+
+    public card getCards(int i) {
+        return this.cards.get(i);
+    }
+
+    public void addCards(card addcards) {
+        this.cards.add(addcards);
+    }
+
+    public void drawing(deck coming){
+            this.cards.add(coming.getCards(0));
+            coming.removecard(0);
+    }
+
+    public int cardsval(){
+        int totalval = 0;
+        int aces = 0;
+        for (card cards: this.cards){
+           switch (cards.getValue()){
+               case TWO: totalval += 2;break;
+               case THREE: totalval += 3;break;
+               case FOUR: totalval += 4;break;
+               case FIVE: totalval += 5;break;
+               case SIX: totalval += 6;break;
+               case SEVEN: totalval += 7;break;
+               case EIGHT: totalval += 8;break;
+               case NINE: totalval += 9;break;
+               case TEN: totalval += 10;break;
+               case JACK: totalval += 10;break;
+               case QUEEN: totalval += 10;break;
+               case KING: totalval += 10;break;
+               case ACE: ++aces;
+           }
+        }
+
+        for(int i = 0; i < aces; ++i) {
+            if (totalval > 10) {
+                ++totalval;
+            }
+            else {
+                totalval += 11;
+            }
+        }
+
+        return totalval;
+    }
+
+
+
+    public String toString(){
+            String listOutput = "";
+            for(card incard: this.cards){
+                listOutput += "\n" +incard.toString();
+
+            }
+            return listOutput;
+    }
+
+}
